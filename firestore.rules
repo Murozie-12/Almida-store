@@ -3,7 +3,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
     // Ganti dengan UID akun admin Firebase Authentication, sama seperti firebase-config.js.
     function isAdmin() {
-      return request.auth != null && request.auth.uid == 'GANTI_UID_ADMIN';
+      return request.auth != null && request.auth.uid == 'YFfLMVGc7MUFTDlBVrzYNQzH9lI3';
     }
     match /products/{productId} {
       allow read: if true;
