@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="Almida Store - Kuota, pulsa dan produk digital dengan pemesanan praktis via WhatsApp.">
+<title>Almida Store | Kuota & Produk Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ALMIDA Premium Fintech Edition V4 — Minimalist & Premium */
+:root {
+  font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
+  color: #0f172a;
+  background: #fafafa;
+  scroll-behavior: smooth;
+  --primary: #0f62fe;
+  --primary-hover: #0353e9;
+  --surface: #ffffff;
+  --border: #f1f5f9;
+  --text-muted: #64748b;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: radial-gradient(ellipse 80% 500px at 50% -100px, rgba(15, 98, 254, 0.08) 0, transparent 100%), #fafafa;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+button, a, input, select { transition: all .25s cubic-bezier(0.4, 0, 0.2, 1); }
+button { cursor: pointer; font-family: inherit; }
+a { text-decoration: none; color: inherit; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid rgba(15, 98, 254, 0.3); outline-offset: 3px; }
+
+.wrap { max-width: 1180px; margin: auto; padding: 0 24px; }
+.top { background: #0f172a; color: #f8fafc; font-size: 12px; padding: 10px 0; font-weight: 500; letter-spacing: 0.02em; }
+.top .wrap { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+
+/* Soft Glassmorphism Nav */
+.nav {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+}
+.navin { display: flex; align-items: center; gap: 20px; min-height: 80px; }
+.logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 19px; color: #0f172a; letter-spacing: -0.04em; }
+.mark {
+  width: 44px; height: 44px; border-radius: 14px;
+  background: var(--primary);
+  display: grid; place-items: center; color: #fff;
+  box-shadow: 0 8px 20px rgba(15, 98, 254, 0.25);
+}
+
+.search {
+  flex: 1; display: flex; align-items: center;
+  background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 0 16px; min-height: 52px;
+  transition: all 0.3s ease;
+}
+.search:focus-within { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(15, 98, 254, 0.1); }
+.search svg { width: 20px; height: 20px; color: #94a3b8; flex: none; }
+.search input { background: none; border: 0; outline: 0; padding: 14px 12px; width: 100%; min-width: 0; font-size: 14px; color: #0f172a; }
+
+.btn {
+  background: var(--primary); color: #fff; border: 0; border-radius: 14px;
+  padding: 14px 20px; font-weight: 700; font-size: 14px;
+  box-shadow: 0 8px 16px rgba(15, 98, 254, 0.15);
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 12px 20px rgba(15, 98, 254, 0.2); }
+.btn:active { transform: scale(0.97); }
+.ghost { background: #f1f5f9; color: #0f172a; box-shadow: none; }
+.ghost:hover { background: #e2e8f0; box-shadow: none; }
+.cartbtn { position: relative; white-space: nowrap; }
+.cartbtn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.count { background: #f59e0b; color: #fff; padding: 2px 7px; border-radius: 99px; font-size: 12px; font-weight: 800; line-height: 1; }
+
+/* Hero Section - Apple/Stripe Style */
+.hero { padding: 40px 0 20px; position: relative; }
+.heroInner {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 32px;
+  padding: 64px;
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.04), inset 0 0 0 1px rgba(255,255,255,0.5);
+  position: relative; overflow: hidden;
+}
+.heroInner::before {
+  content: ''; position: absolute; top: -20%; right: -10%; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(15, 98, 254, 0.12) 0%, transparent 70%);
+  filter: blur(60px); z-index: -1; pointer-events: none;
+}
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #f1f5f9; color: var(--primary); padding: 8px 16px;
+  border-radius: 99px; font-size: 12px; font-weight: 800; letter-spacing: 0.05em;
+}
+.eyebrow svg { width: 14px; height: 14px; }
+.hero h1 { font-size: clamp(36px, 5vw, 64px); letter-spacing: -0.04em; line-height: 1.1; margin: 24px 0 20px; color: #0f172a; }
+.hero p { color: var(--text-muted); font-size: 17px; line-height: 1.7; max-width: 480px; margin-bottom: 32px; }
+
+/* Magnetic/Tilt 3D Phone replacement */
+.heroArt { display: grid; place-items: center; perspective: 1000px; }
+.phone {
+  width: 240px; height: 310px;
+  border-radius: 40px;
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+  border: 8px solid #f1f5f9;
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.08), inset 0 4px 10px rgba(255,255,255,0.8);
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px;
+  transform: rotateY(-10deg) rotateX(5deg);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.phone:hover { transform: rotateY(0deg) rotateX(0deg) translateY(-10px); }
+.phone svg { width: 48px; height: 48px; color: var(--primary); }
+.phone span { font-weight: 800; color: #0f172a; letter-spacing: -0.02em; font-size: 18px; }
+.phone small { color: var(--text-muted); font-weight: 500; font-size: 13px; }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 40px 0 60px; }
+.stat {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+  padding: 24px; display: flex; align-items: center; gap: 16px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+}
+.stat b { display: block; font-size: 15px; color: #0f172a; }
+.stat small { color: var(--text-muted); font-size: 13px; line-height: 1.5; margin-top: 4px; display: block; }
+.ico {
+  width: 48px; height: 48px; background: #f0fdf4; color: #16a34a;
+  border-radius: 16px; display: grid; place-items: center; flex: none;
+}
+.stat:nth-child(2) .ico { background: #eff6ff; color: var(--primary); }
+.stat:nth-child(3) .ico { background: #fffbeb; color: #d97706; }
+.ico svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.heading { display: flex; align-items: end; justify-content: space-between; margin: 60px 0 24px; }
+.heading h2 { margin: 0; font-size: 32px; letter-spacing: -0.03em; color: #0f172a; }
+.heading p { margin: 8px 0 0; color: var(--text-muted); font-size: 15px; }
+
+.promo {
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+  border: 1px solid #e2e8f0; border-radius: 24px; padding: 24px 32px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.03);
+  margin-bottom: 40px;
+}
+.promo b { color: #0f172a; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+.promo b svg { color: var(--primary); width: 20px; height: 20px; }
+
+.chips { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+.chip {
+  border: 1px solid var(--border); border-radius: 99px; background: var(--surface);
+  color: var(--text-muted); padding: 12px 20px; font-weight: 600; font-size: 14px;
+}
+.chip:hover { border-color: #cbd5e1; color: #0f172a; }
+.chip.active { background: #0f172a; color: #fff; border-color: #0f172a; }
+
+/* Product Cards - Clean & Minimal */
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.product {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+  display: flex; flex-direction: column; overflow: hidden;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.03);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.product:hover { transform: translateY(-6px); box-shadow: 0 30px 50px rgba(15, 23, 42, 0.06); border-color: #e2e8f0; }
+.phead {
+  padding: 24px 24px 16px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.operator { font-size: 13px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.tag { background: #fef3c7; color: #b45309; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 800; letter-spacing: 0.02em; }
+.pbody { padding: 0 24px 24px; flex: 1; display: flex; flex-direction: column; }
+.pbody h3 { font-size: 18px; margin: 0 0 8px; letter-spacing: -0.02em; color: #0f172a; }
+.pbody p { font-size: 14px; color: var(--text-muted); margin: 0 0 24px; line-height: 1.6; }
+.price { font-size: 26px; font-weight: 800; color: #0f172a; margin-top: auto; letter-spacing: -0.04em; }
+.old { font-size: 13px; color: #94a3b8; text-decoration: line-through; margin: 4px 0 16px; }
+.product .btn { width: 100%; border-radius: 12px; background: #f1f5f9; color: var(--primary); box-shadow: none; }
+.product .btn:hover { background: var(--primary); color: #fff; }
+
+.empty { text-align: center; padding: 60px; color: var(--text-muted); background: var(--surface); border: 1px dashed #cbd5e1; border-radius: 24px; grid-column: 1/-1; }
+
+.footer { margin-top: 100px; background: #0f172a; color: #fff; padding: 60px 0; border-top: 1px solid #1e293b; }
+.footer .wrap { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.footer small { color: #64748b; }
+.footer b { font-size: 20px; letter-spacing: -0.02em; }
+
+/* Scroll Reveal Animation Classes */
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* Overlays & Modals */
+.overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px); z-index: 50; display: none; transition: opacity 0.3s; opacity: 0; }
+.overlay.show { display: block; opacity: 1; }
+.drawer { position: fixed; right: 0; top: 0; height: 100dvh; width: min(440px, 100%); background: #fff; z-index: 51; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; flex-direction: column; box-shadow: -20px 0 50px rgba(0,0,0,0.05); }
+.drawer.show { transform: translateX(0); }
+.drawerHead { padding: 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.drawerHead h2 { margin: 0; font-size: 20px; letter-spacing: -0.02em; }
+.drawerBody { padding: 24px; overflow: auto; flex: 1; }
+.drawerFoot { padding: 24px; border-top: 1px solid var(--border); background: #f8fafc; }
+.line { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+.line:last-child { border: 0; }
+.smallbtn { border: 0; background: #f1f5f9; color: #0f172a; border-radius: 10px; padding: 8px 12px; font-weight: 700; font-size: 13px; transition: all 0.2s; }
+.smallbtn:hover { background: #e2e8f0; }
+.smallbtn:active { transform: scale(0.95); }
+
+.modalWrap { position: fixed; inset: 0; z-index: 60; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s; }
+.modalWrap.show { display: flex; opacity: 1; }
+.modal { width: min(520px, 100%); max-height: 90dvh; overflow: auto; background: white; border-radius: 28px; padding: 32px; box-shadow: 0 25px 50px rgba(15, 23, 42, 0.1); transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.modalWrap.show .modal { transform: scale(1); }
+.modalTop { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.modal h2 { margin: 0; font-size: 24px; letter-spacing: -0.03em; }
+
+.field { display: block; margin: 20px 0; }
+.field span { display: block; font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #334155; }
+.field input, .field select { width: 100%; padding: 14px 16px; border: 1px solid #cbd5e1; border-radius: 14px; background: #fff; font-size: 15px; }
+.field input:focus, .field select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(15, 98, 254, 0.1); }
+.notice { background: #f1f5f9; border-radius: 14px; padding: 16px; color: #475569; font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+
+.wa { background: #10b981; color: white; box-shadow: 0 8px 16px rgba(16, 185, 129, 0.2); }
+.wa:hover { background: #059669; box-shadow: 0 12px 20px rgba(16, 185, 129, 0.25); }
+
+.almida-toast { position: fixed; left: 50%; bottom: 40px; transform: translate(-50%, 20px); background: #0f172a; color: #fff; padding: 14px 24px; border-radius: 99px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.2); font-size: 14px; font-weight: 600; z-index: 100; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; align-items: center; gap: 8px; }
+.almida-toast.show { opacity: 1; transform: translate(-50%, 0); }
+.almida-bottom-nav { display: none; }
+.hide { display: none !important; }
+
+@media(max-width:900px){ .grid{grid-template-columns:repeat(3,1fr);} .heroInner{padding:40px; gap: 20px;} .phone{width:180px; height:240px;} }
+@media(max-width:650px){
+  .wrap{padding:0 20px;} .top{font-size:11px;} .top .wrap span:last-child{display:none;}
+  .navin{min-height:70px; gap: 12px;} .logo{font-size: 17px;} .mark{width: 36px; height: 36px;}
+  .nav .cartbtn .desktop{display:none;}
+  .search{order:3; flex-basis:100%; min-height: 48px; margin-top: 4px;}
+  .hero{padding-top:20px;}
+  .heroInner{grid-template-columns:1fr; padding: 32px 24px; border-radius: 28px;}
+  .heroArt{display:none;} .hero h1{font-size: clamp(32px, 8vw, 42px);}
+  .stats{grid-template-columns:1fr; gap: 12px; margin: 24px 0 40px;}
+  .stat{padding: 16px;} .ico{width: 40px; height: 40px;} .ico svg{width: 20px; height: 20px;}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap: 16px;}
+  .phead{padding:16px 16px 12px;} .pbody{padding: 0 16px 16px;}
+  .pbody h3{font-size:15px;} .price{font-size:22px;}
+  .heading h2{font-size:24px;} .promo{flex-direction:column; align-items:flex-start; padding: 20px; border-radius: 20px;}
+  .drawer{width: 100%; height: min(85dvh, 700px); top: auto; bottom: 0; border-radius: 28px 28px 0 0; transform: translateY(100%);}
+  .drawer.show{transform: translateY(0);}
+  .modal{padding: 24px;}
+  
+  .almida-bottom-nav{
+    display: grid; grid-template-columns: repeat(4, 1fr); position: fixed;
+    bottom: calc(16px + env(safe-area-inset-bottom)); left: 20px; right: 20px; z-index: 30;
+    background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.5); border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(15, 23, 42, 0.08); padding: 8px;
+  }
+  .almida-bottom-nav button{ border: 0; background: transparent; color: #64748b; border-radius: 16px; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; padding: 10px 4px; }
+  .almida-bottom-nav button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 2px; }
+  .almida-bottom-nav button.active{ background: #eff6ff; color: var(--primary); }
+  .footer{padding-bottom: calc(120px + env(safe-area-inset-bottom));}
+}
+@media(prefers-reduced-motion:reduce){ *,*::before,*::after{animation:none!important; transition-duration:0.01ms!important;} }
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap">
+  <span><svg viewBox="0 0 24 24" width="14" height="14" style="vertical-align:-2px;margin-right:4px;fill:none;stroke:currentColor;stroke-width:2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Kuota & produk digital instan</span>
+  <span><svg viewBox="0 0 24 24" width="14" height="14" style="vertical-align:-2px;margin-right:4px;fill:none;stroke:currentColor;stroke-width:2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> CS: 0852-2243-3800</span>
+</div></div>
+
+<header class="nav">
+  <div class="wrap navin">
+    <a href="#" class="logo"><span class="mark"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg></span><span>ALMIDA STORE</span></a>
+    
+    <label class="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" placeholder="Cari produk, operator, pulsa..." aria-label="Cari produk">
+    </label>
+    
+    <button class="btn ghost cartbtn" id="historyBtn" aria-label="Riwayat" title="Riwayat">
+      <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+      <span class="desktop">Riwayat</span>
+    </button>
+    <button class="btn cartbtn" id="cartBtn" aria-label="Keranjang" title="Keranjang">
+      <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="desktop">Keranjang</span> <span id="cartCount" class="count">0</span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero reveal">
+    <div class="heroInner">
+      <div>
+        <span class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> ALMIDA STORE</span>
+        <h1>Koneksi Lancar,<br>Harga Masuk Akal.</h1>
+        <p>Temukan paket internet, pulsa, dan voucher game favoritmu. Pilih produk, masukkan keranjang, lalu checkout langsung lewat WhatsApp dengan aman.</p>
+        <a class="btn" href="#katalog" style="margin-top: 8px;">Jelajahi Produk <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="heroArt">
+        <div class="phone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+          <span>Data Super Cepat</span>
+          <small>Stay Connected.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats reveal">
+    <div class="stat">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+      <div><b>Pesan via WhatsApp</b><small>Mudah dan familiar digunakan.</small></div>
+    </div>
+    <div class="stat">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></span>
+      <div><b>Banyak Pilihan</b><small>Semua operator tersedia.</small></div>
+    </div>
+    <div class="stat">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+      <div><b>Harga Transparan</b><small>Tak ada biaya tersembunyi.</small></div>
+    </div>
+  </div>
+
+  <section class="reveal">
+    <div class="promo">
+      <div>
+        <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> PROMO SPESIAL HARI INI</b>
+        <div id="promoText" style="margin-top:8px; color: var(--text-muted); font-size: 15px;">Dapatkan penawaran menarik untuk produk berlabel PROMO.</div>
+      </div>
+      <button class="btn" id="promoBtn">Lihat Promo</button>
+    </div>
+  </section>
+
+  <section id="katalog" class="reveal">
+    <div class="heading">
+      <div><h2>Katalog Produk</h2><p>Pilih paket yang sesuai dengan kebutuhanmu.</p></div>
+      <span id="productCount" style="color: var(--text-muted); font-weight: 600;"></span>
+    </div>
+    <div class="chips" id="filters"></div>
+    <div class="grid" id="products"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div>
+      <b><svg viewBox="0 0 24 24" width="20" height="20" style="vertical-align:-3px;margin-right:8px;fill:none;stroke:currentColor;stroke-width:2.5"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg> ALMIDA STORE</b>
+      <p><small>Pusat kuota internet dan produk digital.</small></p>
+    </div>
+    <div>
+      <b style="font-size: 16px; display: block; margin-bottom: 12px;">Bantuan</b>
+      <p><a href="https://wa.me/6285222433800" target="_blank" style="color:#94a3b8">WhatsApp: 0852-2243-3800</a></p>
+      <button id="adminBtn" class="smallbtn" style="background: rgba(255,255,255,0.1); color: #fff;">Login Admin</button>
+    </div>
+    <small style="width: 100%; border-top: 1px solid #1e293b; padding-top: 24px; margin-top: 12px;">© <span id="year"></span> Almida Store. Hak Cipta Dilindungi.</small>
+  </div>
+</footer>
+
+<nav class="almida-bottom-nav">
+  <button type="button" class="active" data-nav="home"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Beranda</button>
+  <button type="button" data-nav="catalog"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Katalog</button>
+  <button type="button" data-nav="promo"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Promo</button>
+  <button type="button" data-nav="cart"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Keranjang</button>
+</nav>
+
+<div id="almidaToast" class="almida-toast">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#10b981" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toastText">Ditambahkan ke keranjang</span>
+</div>
+
+<div id="overlay" class="overlay"></div>
+<aside id="drawer" class="drawer">
+  <div class="drawerHead">
+    <h2>Keranjang Belanja</h2>
+    <button class="smallbtn" id="closeCart"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="drawerBody" id="cartItems"></div>
+  <div class="drawerFoot">
+    <div class="line" style="border:0; padding-bottom: 24px;">
+      <span style="color:var(--text-muted); font-weight: 600;">Total</span>
+      <b id="cartTotal" style="font-size: 24px; letter-spacing: -0.03em;">Rp0</b>
+    </div>
+    <label class="field" style="margin-top:0">
+      <span>Nomor HP Tujuan *</span>
+      <input id="targetPhone" inputmode="numeric" placeholder="08xxxxxxxxxx" maxlength="16">
+    </label>
+    <label class="field">
+      <span>Nama (Opsional)</span>
+      <input id="customerName" placeholder="Nama Anda" maxlength="80">
+    </label>
+    <button id="checkoutBtn" class="btn wa" style="width:100%; height: 52px; font-size: 15px;">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> 
+      Checkout via WhatsApp
+    </button>
+    <p style="font-size:12px; color:var(--text-muted); margin-top:16px; text-align:center;">Nomor di atas berlaku untuk semua produk dalam keranjang.</p>
+  </div>
+</aside>
+
+<div class="modalWrap" id="historyModal">
+  <div class="modal">
+    <div class="modalTop">
+      <h2>Riwayat Pesanan</h2>
+      <button class="smallbtn" data-close="historyModal"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <p class="notice">Riwayat tersimpan di peramban ini dan bukan bukti pembayaran sah.</p>
+    <div id="historyList"></div>
+  </div>
+</div>
+
+<div class="modalWrap" id="adminModal">
+  <div class="modal">
+    <div class="modalTop">
+      <h2>Admin Panel</h2>
+      <button class="smallbtn" data-close="adminModal"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div id="adminStatus" class="notice">Menghubungkan Firebase...</div>
+    <form id="loginForm">
+      <label class="field"><span>Email admin</span><input id="adminEmail" type="email" required></label>
+      <label class="field"><span>Password</span><input id="adminPassword" type="password" required></label>
+      <button class="btn" style="width:100%; height:52px">Login</button>
+    </form>
+    <div id="adminPanel" class="hide">
+      <button class="smallbtn" id="logoutBtn" style="margin-bottom: 24px;">Keluar Akun</button>
+      <h3 style="margin-top:0">Kelola Produk</h3>
+      <form id="productForm">
+        <input type="hidden" id="editId">
+        <label class="field"><span>Nama Produk</span><input id="pName" required></label>
+        <label class="field"><span>Kategori</span>
+          <select id="pCategory">
+            <option>Telkomsel</option><option>Indosat</option><option>XL</option>
+            <option>AXIS</option><option>Tri</option><option>Smartfren</option>
+            <option>Pulsa</option><option>Produk Digital</option>
+          </select>
+        </label>
+        <label class="field"><span>Harga (Rp)</span><input id="pPrice" type="number" required></label>
+        <label class="field"><span>Deskripsi</span><input id="pDesc"></label>
+        <label class="field" style="display:flex; align-items:center; gap:8px;">
+          <input type="checkbox" id="pPromo" style="width:auto;"> <span style="margin:0">Tandai Promo</span>
+        </label>
+        <div style="display:flex; gap:12px; margin-top:24px;">
+          <button class="btn" type="submit" style="flex:1">Simpan</button>
+          <button type="button" class="btn ghost" id="resetProduct">Batal</button>
+        </div>
+      </form>
+      <h3 style="margin-top:32px">Daftar Produk</h3>
+      <div id="adminProducts" style="max-height: 300px; overflow-y: auto;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Scroll Reveal Observer
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+    }
+  });
+}, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Basic Interactions
+(function(){
+  function init(){
+    const admin=document.getElementById('adminBtn');
+    const modal=document.getElementById('adminModal');
+    if(admin&&modal) admin.addEventListener('click',()=>modal.classList.add('show'));
+    
+    document.querySelectorAll('[data-close]').forEach(b=>{
+      b.addEventListener('click',()=>document.getElementById(b.dataset.close)?.classList.remove('show'));
+    });
+    
+    document.querySelectorAll('.modalWrap').forEach(m=>{
+      m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show');});
+    });
+    
+    document.querySelectorAll('[data-nav]').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const action=btn.dataset.nav;
+        if(action==='cart'){document.getElementById('cartBtn')?.click(); return;}
+        if(action==='promo') document.getElementById('promoBtn')?.click();
+        else if(action==='catalog') document.getElementById('katalog')?.scrollIntoView({behavior:'smooth'});
+        else window.scrollTo({top:0,behavior:'smooth'});
+        document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active',b===btn));
+      });
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+
+<script type="module">
+// Mock Firebase Config for standalone demo to work beautifully. 
+// User needs to replace with actual firebase logic.
+const money = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
+const safe = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+const demo = [
+  {id:'d1', name:'Internet Max 5 GB', category:'Telkomsel', price:18000, description:'Kuota utama 5GB 30 Hari', promo:true},
+  {id:'d2', name:'Freedom 10 GB', category:'Indosat', price:29000, description:'Kuota full 24 jam', promo:false},
+  {id:'d3', name:'Xtra Combo 8 GB', category:'XL', price:26000, description:'Bonus telepon ke semua operator', promo:true},
+  {id:'d4', name:'Pulsa Reguler 50k', category:'Pulsa', price:51500, description:'Menambah masa aktif kartu', promo:false}
+];
+
+let products = demo, cart = [], category = 'Semua';
+
+function renderFilters() {
+  const cats = ['Semua', ...new Set(products.map(p=>p.category)), 'Promo'];
+  document.getElementById('filters').innerHTML = cats.map(c=>
+    `<button class="chip ${c===category?'active':''}" data-filter="${safe(c)}">${safe(c)}</button>`
+  ).join('');
+  document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{
+    category = b.dataset.filter;
+    renderProducts();
+  });
+}
+
+function renderProducts() {
+  renderFilters();
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  const filtered = products.filter(p=>(category==='Semua' || (category==='Promo'?p.promo:p.category===category)) && [p.name,p.category].join(' ').toLowerCase().includes(q));
+  
+  document.getElementById('productCount').textContent = filtered.length + ' Produk';
+  document.getElementById('products').innerHTML = filtered.length ? filtered.map(p=>
+    `<article class="product reveal active">
+      <div class="phead">
+        <span class="operator">${safe(p.category)}</span>
+        ${p.promo?'<span class="tag">PROMO</span>':''}
+      </div>
+      <div class="pbody">
+        <h3>${safe(p.name)}</h3>
+        <p>${safe(p.description)}</p>
+        <div class="price">${money(p.price)}</div>
+        <div class="old">${p.promo?'Harga spesial hari ini':'&nbsp;'}</div>
+        <button class="btn" data-add="${safe(p.id)}">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg> Keranjang
+        </button>
+      </div>
+    </article>`
+  ).join('') : '<div class="empty">Tidak ada produk ditemukan.</div>';
+  
+  document.querySelectorAll('[data-add]').forEach(b=>b.onclick=function(){
+    addCart(this.dataset.add);
+    
+    // Smooth Button interaction
+    const origHtml = this.innerHTML;
+    this.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Ditambahkan';
+    this.style.background = '#10b981';
+    this.style.color = '#fff';
+    setTimeout(()=>{
+      this.innerHTML = origHtml;
+      this.style.background = '';
+      this.style.color = '';
+    }, 1200);
+  });
+}
+
+function addCart(id) {
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  const ex = cart.find(x=>x.id===id);
+  if(ex) ex.qty++; else cart.push({id, qty:1});
+  
+  const toast = document.getElementById('almidaToast');
+  document.getElementById('toastText').textContent = p.name + ' ditambahkan';
+  toast.classList.add('show');
+  clearTimeout(window.tTimer);
+  window.tTimer = setTimeout(()=>toast.classList.remove('show'), 2500);
+  
+  renderCart();
+  const badge = document.getElementById('cartCount');
+  badge.animate([{transform:'scale(1)'},{transform:'scale(1.4)'},{transform:'scale(1)'}],{duration:300});
+}
+
+function renderCart() {
+  document.getElementById('cartCount').textContent = cart.reduce((s,x)=>s+x.qty,0);
+  let total = 0;
+  document.getElementById('cartItems').innerHTML = cart.length ? cart.map(x=>{
+    const p = products.find(i=>i.id===x.id);
+    total += p.price * x.qty;
+    return `<div class="line">
+      <div><b style="color:#0f172a; font-size:15px">${safe(p.name)}</b><br><small style="color:var(--text-muted)">${money(p.price)}</small></div>
+      <div style="display:flex; align-items:center; gap:12px; background:#f1f5f9; padding:4px; border-radius:12px">
+        <button class="smallbtn" style="background:#fff" onclick="changeQty('${x.id}',-1)">−</button>
+        <span style="font-weight:700; font-size:13px; width:20px; text-align:center">${x.qty}</span>
+        <button class="smallbtn" style="background:#fff" onclick="changeQty('${x.id}',1)">+</button>
+      </div>
+    </div>`;
+  }).join('') : '<div class="empty" style="border:0">Keranjang kosong.</div>';
+  document.getElementById('cartTotal').textContent = money(total);
+}
+
+window.changeQty = (id, n) => {
+  const x = cart.find(i=>i.id===id);
+  if(x) { x.qty+=n; if(x.qty<=0) cart = cart.filter(i=>i.id!==id); }
+  renderCart();
+}
+
+document.getElementById('search').oninput = renderProducts;
+document.getElementById('promoBtn').onclick = () => { category='Promo'; renderProducts(); document.getElementById('katalog').scrollIntoView(); };
+document.getElementById('year').textContent = new Date().getFullYear();
+
+document.getElementById('cartBtn').onclick = () => { document.getElementById('overlay').classList.add('show'); document.getElementById('drawer').classList.add('show'); };
+const closeC = () => { document.getElementById('overlay').classList.remove('show'); document.getElementById('drawer').classList.remove('show'); };
+document.getElementById('closeCart').onclick = closeC;
+document.getElementById('overlay').onclick = closeC;
+
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
