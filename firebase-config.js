@@ -1,6 +1,6 @@
 // Salin konfigurasi aplikasi WEB dari Firebase Console > Project settings > Your apps.
 // Ini konfigurasi publik, BUKAN service account/private key.
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyD0dhXqZEFqxjXkDl1LQLyD827G1fAipcc",
   authDomain: "almida-store.firebaseapp.com",
   projectId: "almida-store",
