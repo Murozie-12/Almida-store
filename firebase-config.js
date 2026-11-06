@@ -10,4 +10,4 @@ const firebaseConfig = {
 };
 // Firebase Console > Authentication > Users > pilih user admin > salin User UID.
 // Harus cocok dengan UID pada firestore.rules.
-export const ADMIN_UID = 'GANTI_UID_ADMIN';
+export const ADMIN_UID = 'YFfLMVGc7MUFTDlBVrzYNQzH9lI3';
