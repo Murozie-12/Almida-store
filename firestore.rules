@@ -1,48 +1,79 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Ganti dengan UID akun admin Firebase Authentication, sama seperti firebase-config.js.
     function isAdmin() {
       return request.auth != null && request.auth.uid == 'YFfLMVGc7MUFTDlBVrzYNQzH9lI3';
     }
-
     function validProduct() {
       let d = request.resource.data;
-      return d.keys().hasOnly(['name','category','price','description','promo','active','soldOut','updatedAt'])
-        && d.keys().hasAll(['name','category','price','description','promo','active','soldOut','updatedAt'])
+      return d.keys().hasOnly(['name','category','price','description','promo','active','soldOut','updatedAt','productType','stockStatus','terms','platform','metric'])
+        && d.keys().hasAll(['name','category','price','description','promo','active','updatedAt'])
         && d.name is string && d.name.size() > 0 && d.name.size() <= 100
-        && d.category is string && d.category in ['Telkomsel','Indosat','XL','AXIS','Tri','Smartfren','Pulsa','Produk Digital','By.U']
-        && d.price is number && d.price > 0 && d.price <= 100000000
+        && d.category is string && d.category in ['Telkomsel','Indosat','XL','AXIS','Tri','Smartfren','Pulsa','Produk Digital','By.U','Aplikasi Premium','Jasa Digital','Voucher & Top Up','Media Sosial']
+        && d.productType is string && d.productType in ['internet','premium','digital','service','social']
+        && d.stockStatus is string && d.stockStatus in ['consultation','ready','preorder','unavailable']
+        && d.price is number && d.price >= 0 && d.price <= 100000000
+        && (d.price > 0 || d.productType in ['service','social'])
         && d.description is string && d.description.size() <= 300
-        && d.promo is bool && d.active is bool && d.soldOut is bool
+        && d.terms is string && d.terms.size() <= 600
+        && d.platform is string && d.platform.size() <= 80
+        && d.metric is string && d.metric.size() <= 80
+        && d.promo is bool && d.active is bool
+        && (!('soldOut' in d) || d.soldOut is bool)
         && d.updatedAt is timestamp;
     }
-
     function validPromo() {
       let d = request.resource.data;
       return d.keys().hasOnly(['active','title','text','btn','updatedAt'])
         && d.keys().hasAll(['active','title','text','btn','updatedAt'])
-        && d.active is bool
-        && d.title is string && d.title.size() <= 80
+        && d.active is bool && d.title is string && d.title.size() <= 80
         && d.text is string && d.text.size() <= 300
         && d.btn is string && d.btn.size() <= 30
         && d.updatedAt is timestamp;
     }
-
+    function validOrder() {
+      let d = request.resource.data;
+      return d.keys().hasOnly(['orderRef','customer','product','amount','status','paymentStatus','notes','cost','extraFees','businessCategory','source','createdAt','updatedAt'])
+        && d.keys().hasAll(['orderRef','customer','product','amount','status','paymentStatus','notes','cost','extraFees','businessCategory','source','createdAt','updatedAt'])
+        && d.orderRef is string && d.orderRef.size() > 0 && d.orderRef.size() <= 65
+        && d.customer is string && d.customer.size() > 0 && d.customer.size() <= 80
+        && d.product is string && d.product.size() > 0 && d.product.size() <= 160
+        && d.amount is number && d.amount >= 0 && d.amount <= 1000000000
+        && d.cost is number && d.cost >= 0 && d.cost <= 1000000000
+        && d.extraFees is number && d.extraFees >= 0 && d.extraFees <= 1000000000
+        && d.status in ['inquiry','confirmed','processing','completed','cancelled']
+        && d.paymentStatus in ['unpaid','paid','refunded']
+        && d.businessCategory in ['internet','premium','digital','service','social','other']
+        && d.notes is string && d.notes.size() <= 400
+        && d.source is string && d.source.size() <= 60
+        && d.createdAt is timestamp && d.updatedAt is timestamp;
+    }
     match /products/{productId} {
       allow read: if true;
       allow create: if isAdmin() && validProduct();
-      allow update: if isAdmin() && validProduct();
+      allow update: if isAdmin() && (validProduct() || (
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['stockStatus','updatedAt'])
+        && request.resource.data.stockStatus in ['consultation','ready','preorder','unavailable']
+        && request.resource.data.updatedAt is timestamp
+      ));
       allow delete: if isAdmin();
     }
-
-    // Promo banner yang bisa diatur admin dari panel.
     match /settings/promo {
       allow read: if true;
       allow write: if isAdmin() && validPromo();
     }
-
-    // Semua koleksi lain tertutup, termasuk orders dan users.
-    match /{document=**} { allow read, write: if false; }
+    match /orders/{orderId} {
+      allow read, delete: if isAdmin();
+      allow create: if isAdmin() && validOrder();
+      allow update: if isAdmin() && (validOrder() || (
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','paymentStatus','cost','extraFees','businessCategory','updatedAt'])
+        && request.resource.data.status in ['inquiry','confirmed','processing','completed','cancelled']
+        && request.resource.data.paymentStatus in ['unpaid','paid','refunded']
+        && request.resource.data.updatedAt is timestamp
+      ));
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
   }
 }
